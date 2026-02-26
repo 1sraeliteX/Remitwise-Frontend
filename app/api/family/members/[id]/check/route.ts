@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkSpendingLimit } from '@/lib/contracts/family-wallet';
 
+import { withApiLogging } from '@/lib/api-logging';
 /**
  * GET /api/family/members/[id]/check?amount=...
  * Check if a member can spend a specific amount
  * Protected: Requires authentication
  */
-export async function GET(
+export const GET = withApiLogging(async async 
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {

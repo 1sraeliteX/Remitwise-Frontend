@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getTotalUnpaid, getUnpaidBills } from '@/lib/contracts/bill-payments';
 import { jsonSuccess, jsonError } from '@/lib/api/types';
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
+import { withApiLogging } from '@/lib/api-logging';
+export const GET = withApiLogging(async async request: NextRequest): Promise<NextResponse> {
   const authHeader = request.headers.get('authorization') ?? '';
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : null;
 

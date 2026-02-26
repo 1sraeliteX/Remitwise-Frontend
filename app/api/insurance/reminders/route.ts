@@ -1,6 +1,7 @@
 import { requireAuth } from '../../../../lib/session';
 import { getRemindersForWallet } from '../../../../lib/insurance';
 
+import { withApiLogging } from '@/lib/api-logging';
 export const dynamic = 'force-dynamic';
 
 /**
@@ -9,7 +10,7 @@ export const dynamic = 'force-dynamic';
  * Data can come from contract getActivePolicies (filtered) or getOverduePolicies,
  * or from DB when reminders are stored for push/email.
  */
-export async function GET() {
+export const GET = withApiLogging(async async ) {
   let auth: { address: string };
   try {
     auth = await requireAuth();

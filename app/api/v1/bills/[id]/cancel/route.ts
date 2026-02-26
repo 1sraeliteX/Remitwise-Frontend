@@ -1,8 +1,10 @@
+import { withApiLogging } from '@/lib/api-logging';
+
 import { NextResponse } from 'next/server'
 import { buildCancelBillTx } from '../../../../../../lib/contracts/bill-payments'
 import { StrKey } from '@stellar/stellar-sdk'
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export const POST = withApiLogging(async async req: Request, { params }: { params: { id: string } }) {
   try {
     const caller = req.headers.get('x-user')
     if (!caller || !StrKey.isValidEd25519PublicKey(caller)) {

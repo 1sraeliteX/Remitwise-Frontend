@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { withIdempotency } from '@/lib/idempotency';
 
+import { withApiLogging } from '@/lib/api-logging';
 /**
  * POST /api/remittance/allocate
  * Allocate funds for a remittance transaction
  * 
  * Supports idempotency via Idempotency-Key header
  */
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async async request: NextRequest) {
     return withIdempotency(request, async (body) => {
         // TODO: Add authentication
         // const session = await getSession(request);

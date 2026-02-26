@@ -14,10 +14,11 @@ import {
   getNetworkPassphrase,
   SorobanClientError,
 } from "@/lib/soroban/client";
+import { withApiLogging } from "@/lib/api-logging";
 
 export const runtime = "nodejs"; 
 
-export async function GET() {
+export const GET = withApiLogging(async () => {
   try {
     const ledger = await getLatestLedger();
 
@@ -54,4 +55,4 @@ export async function GET() {
       { status: 503 }
     );
   }
-}
+});

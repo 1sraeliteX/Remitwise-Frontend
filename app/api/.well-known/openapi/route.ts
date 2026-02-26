@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
 
-export async function GET() {
+import { withApiLogging } from '@/lib/api-logging';
+export const GET = withApiLogging(async async ) {
   const file = path.join(process.cwd(), "openapi.yaml");
   const yaml = fs.readFileSync(file, "utf8");
 

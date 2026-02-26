@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { setNonce } from "@/lib/auth-cache";
 import { randomBytes } from "crypto";
 
-export async function POST(request: NextRequest) {
+import { withApiLogging } from '@/lib/api-logging';
+export const POST = withApiLogging(async (request: NextRequest) => {
   const { publicKey } = await request.json();
 
   if (!publicKey) {
@@ -20,4 +21,4 @@ export async function POST(request: NextRequest) {
   setNonce(publicKey, nonce);
 
   return NextResponse.json({ nonce });
-}
+});

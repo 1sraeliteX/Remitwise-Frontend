@@ -1,7 +1,8 @@
 import { getGoal, isGoalCompleted } from "@/lib/contracts/savings-goal";
 import { NextResponse, NextRequest } from "next/server";
 
-export async function GET(
+import { withApiLogging } from '@/lib/api-logging';
+export const GET = withApiLogging(async async 
   req: NextRequest,
   context: { params: Promise<{ id: string }> } // ← note Promise
 ) {

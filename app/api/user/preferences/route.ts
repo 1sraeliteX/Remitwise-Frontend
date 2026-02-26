@@ -4,10 +4,11 @@ import { DEFAULT_PREFERENCES } from '@/utils/constants/supported-values';
 import { UserPreferences } from '@/utils/types/user.types';
 import { jsonSuccess, jsonError } from '@/lib/api/types';
 
+import { withApiLogging } from '@/lib/api-logging';
 // In-memory storage for demo purposes (replace with actual database in production)
 let userPreferences: UserPreferences = { ...DEFAULT_PREFERENCES };
 
-export async function PATCH(request: NextRequest) {
+export const PATCH = withApiLogging(async async request: NextRequest) {
   try {
     const body = await request.json();
 
@@ -29,6 +30,6 @@ export async function PATCH(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export const GET = withApiLogging(async async ) {
   return jsonSuccess(userPreferences);
 }

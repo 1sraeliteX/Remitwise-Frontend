@@ -15,6 +15,7 @@ import { StellarTransactionBuilder } from '@/services/transaction-builder-servic
 import { EventStorageService } from '@/services/event-storage-service';
 import { NotificationService } from '@/services/notification-service';
 
+import { withApiLogging } from '@/lib/api-logging';
 // Initialize services
 const policyService = new PolicyService();
 const transactionBuilder = new StellarTransactionBuilder();
@@ -25,7 +26,7 @@ const notificationService = new NotificationService();
  * POST /api/remittance/emergency/build
  * Builds an emergency transfer transaction
  */
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async async request: NextRequest) {
   try {
     // 1. Authentication check
     const userId = await authenticateRequest(request);

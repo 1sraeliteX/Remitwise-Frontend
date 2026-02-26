@@ -33,6 +33,7 @@ import {
 } from '@stellar/stellar-sdk';
 import { getServer, getNetworkPassphrase } from '@/lib/soroban/client';
 
+import { withApiLogging } from '@/lib/api-logging';
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 interface BuildRemittanceRequest {
@@ -205,7 +206,7 @@ async function simulateTransaction(xdr: string): Promise<{
 
 // ── Route Handler ─────────────────────────────────────────────────────────────
 
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async async request: NextRequest) {
   // Authenticate user
   let address: string;
   try {
@@ -277,7 +278,7 @@ import { withIdempotency } from '@/lib/idempotency';
  * 
  * Supports idempotency via Idempotency-Key header
  */
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async async request: NextRequest) {
     return withIdempotency(request, async (body) => {
         // TODO: Add authentication
         // const session = await getSession(request);

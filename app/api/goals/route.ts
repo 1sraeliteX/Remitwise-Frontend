@@ -17,7 +17,8 @@ import {
 import { ApiSuccessResponse } from '@/lib/types/savings-goals';
 
 
-export async function GET(req: Request) {
+import { withApiLogging } from '@/lib/api-logging';
+export const GET = withApiLogging(async async req: Request) {
   try {
     const publicKey = req.headers.get("x-public-key");
 

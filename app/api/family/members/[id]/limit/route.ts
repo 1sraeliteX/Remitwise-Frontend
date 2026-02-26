@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { buildUpdateSpendingLimitTx } from '@/lib/contracts/family-wallet';
 import { UpdateSpendingLimitRequest } from '@/utils/types/family-wallet.types';
 
+import { withApiLogging } from '@/lib/api-logging';
 /**
  * PATCH /api/family/members/[id]/limit
  * Update a member's spending limit
  * Protected: Requires admin authentication
  */
-export async function PATCH(
+export const PATCH = withApiLogging(async async 
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
