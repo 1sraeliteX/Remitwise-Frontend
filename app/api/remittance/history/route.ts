@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { validatePaginationParams, paginateData, PaginatedResult } from '../../../../lib/utils/pagination';
 
+import { withApiLogging } from '@/lib/api-logging';
 // Mock data structure for transaction history - in a real app this would come from a contract or database
 interface Transaction {
   id: string;
@@ -30,7 +31,7 @@ const mockTransactions: Transaction[] = [
   { id: '10', senderId: 'user19', recipientId: 'user20', amount: 1200.00, currency: 'EUR', status: 'completed', type: 'remittance', description: 'Property deposit', timestamp: '2024-01-07T12:10:00Z', fees: 12.00, exchangeRate: 1.08 },
 ];
 
-export async function GET(request: NextRequest) {
+export const GET = withApiLogging(async async request: NextRequest) {
   try {
     // Extract pagination parameters from query
     const url = new URL(request.url);
@@ -61,7 +62,7 @@ export async function GET(request: NextRequest) {
 }
 
 // POST handler for creating transactions (future use)
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async async request: NextRequest) {
   try {
     const body = await request.json();
     

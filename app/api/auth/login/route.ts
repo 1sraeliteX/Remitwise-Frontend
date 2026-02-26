@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Keypair, StrKey } from '@stellar/stellar-sdk';
 import { getNonce, deleteNonce } from '@/lib/auth/nonce-store';
+import { withApiLogging } from '@/lib/api-logging';
 
 // Force dynamic rendering for this route
 export const dynamic = 'force-dynamic';
@@ -15,7 +16,7 @@ export const runtime = 'nodejs';
  * - message: The nonce that was signed
  * - signature: Base64-encoded signature
  */
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async (request: NextRequest) => {
   try {
     const body = await request.json();
     const { address, message, signature } = body;
@@ -87,4 +88,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});

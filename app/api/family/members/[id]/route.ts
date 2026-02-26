@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getMember } from '@/lib/contracts/family-wallet';
 
+import { withApiLogging } from '@/lib/api-logging';
 /**
  * GET /api/family/members/[id]
  * Get a specific family member by ID
  * Protected: Requires authentication
  */
-export async function GET(
+export const GET = withApiLogging(async async 
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {

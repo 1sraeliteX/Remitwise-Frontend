@@ -1,7 +1,9 @@
+import { withApiLogging } from '@/lib/api-logging';
+
 import { NextResponse } from 'next/server'
 import { verifySignature } from '@/lib/webhooks/verify'
 
-export async function POST(request: Request) {
+export const POST = withApiLogging(async async request: Request) {
   try {
     // 1. Read the raw body as text for accurate signature verification
     const rawBody = await request.text()

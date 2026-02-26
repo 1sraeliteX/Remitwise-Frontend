@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { anchorClient, ExchangeRate } from '@/lib/anchor/client';
 
+import { withApiLogging } from '@/lib/api-logging';
 export const dynamic = 'force-dynamic';
 
 interface CacheData {
@@ -18,7 +19,7 @@ let rateCache: CacheData = {
 // 5 minutes in milliseconds
 const CACHE_TTL = 5 * 60 * 1000;
 
-export async function GET() {
+export const GET = withApiLogging(async async ) {
     const now = Date.now();
     const isCacheValid = rateCache.rates !== null && (now - rateCache.timestamp) < CACHE_TTL;
 

@@ -3,7 +3,8 @@ import { getSession } from '@/lib/auth/session';
 import { buildUpdateSplitTx } from '@/lib/contracts/remittance-split';
 import { SplitPercentages, ValidationError } from '@/lib/validation/percentages';
 
-export async function POST(request: NextRequest) {
+import { withApiLogging } from '@/lib/api-logging';
+export const POST = withApiLogging(async async request: NextRequest) {
   try {
     // 1. Verify authentication
     const session = await getSession(request);

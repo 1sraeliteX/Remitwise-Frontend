@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAllMembers, buildAddMemberTx } from '@/lib/contracts/family-wallet';
 import { AddMemberRequest } from '@/utils/types/family-wallet.types';
 
+import { withApiLogging } from '@/lib/api-logging';
 /**
  * GET /api/family/members
  * Get all family members
  * Protected: Requires authentication
  */
-export async function GET(request: NextRequest) {
+export const GET = withApiLogging(async async request: NextRequest) {
     try {
         // TODO: Get session/auth from request
         // const session = await getSession(request);
@@ -44,7 +45,7 @@ export async function GET(request: NextRequest) {
  * Add a new family member
  * Protected: Requires admin authentication
  */
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async async request: NextRequest) {
     try {
         // TODO: Get session/auth from request
         // const session = await getSession(request);

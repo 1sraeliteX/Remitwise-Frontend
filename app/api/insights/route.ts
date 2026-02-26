@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { withApiLogging } from '@/lib/api-logging';
 /**
  * Financial Insights Aggregation API
  *
@@ -79,7 +80,7 @@ function filterByPeriod(period: string, txs: Transaction[]) {
   return txs;
 }
 
-export async function GET(req: NextRequest) {
+export const GET = withApiLogging(async async req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const period = searchParams.get("period") || "current_month";
 

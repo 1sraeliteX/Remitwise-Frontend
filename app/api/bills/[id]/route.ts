@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getBill } from '@/lib/contracts/bill-payments';
 import { jsonSuccess, jsonError } from '@/lib/api/types';
 
+import { withApiLogging } from '@/lib/api-logging';
 export const runtime = 'nodejs';
 
-export async function GET(
+export const GET = withApiLogging(async async 
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {

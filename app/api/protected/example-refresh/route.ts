@@ -5,9 +5,10 @@
 
 import { getSessionWithRefresh, clearSessionCookie } from '@/lib/session';
 
+import { withApiLogging } from '@/lib/api-logging';
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = withApiLogging(async async ) {
   // Validate session (with refresh if enabled)
   const session = await getSessionWithRefresh();
   

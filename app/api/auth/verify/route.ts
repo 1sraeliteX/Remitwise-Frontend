@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { withApiLogging } from '@/lib/api-logging';
 /**
  * POST /api/auth/verify
  * Verify a signature for authentication
@@ -9,7 +10,7 @@ import { NextRequest, NextResponse } from 'next/server';
  * - signature: Signed nonce
  * - nonce: Original nonce
  */
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async async request: NextRequest) {
     try {
         const body = await request.json();
         const { address, signature, nonce } = body;

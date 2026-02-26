@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getTotalMonthlyPremium } from "@/lib/contracts/insurance-cached";
 import { validateAuth, unauthorizedResponse } from "@/lib/auth";
 
+import { withApiLogging } from '@/lib/api-logging';
 // GET /api/insurance/total-premium?owner=G...
-export async function GET(request: NextRequest) {
+export const GET = withApiLogging(async async request: NextRequest) {
   if (!validateAuth(request)) {
     return unauthorizedResponse();
   }

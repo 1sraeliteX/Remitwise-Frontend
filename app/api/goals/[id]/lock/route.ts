@@ -11,7 +11,8 @@ import {
 import { validateGoalId } from '@/lib/validation/savings-goals';
 import { ApiSuccessResponse } from '@/lib/types/savings-goals';
 
-export async function POST(
+import { withApiLogging } from '@/lib/api-logging';
+export const POST = withApiLogging(async async 
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {

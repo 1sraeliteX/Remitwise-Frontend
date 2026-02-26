@@ -5,9 +5,10 @@
 
 import { requireAuth } from '@/lib/session';
 
+import { withApiLogging } from '@/lib/api-logging';
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = withApiLogging(async async ) {
   try {
     // Validate session or throw 401 Response
     const { address } = await requireAuth();

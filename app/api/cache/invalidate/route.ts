@@ -26,6 +26,7 @@ import {
   CacheErrorCode,
 } from '@/lib/cache/contract-cache';
 
+import { withApiLogging } from '@/lib/api-logging';
 // Maximum request body size (prevent DoS)
 const MAX_BODY_SIZE = 10240; // 10KB
 
@@ -59,7 +60,7 @@ async function validateRequestBody(request: NextRequest): Promise<unknown> {
  * @security Should be protected with authentication in production
  * @security Should have rate limiting in production
  */
-export async function POST(request: NextRequest) {
+export const POST = withApiLogging(async async request: NextRequest) {
   try {
     // Validate and parse request body
     const body = await validateRequestBody(request);
@@ -209,7 +210,7 @@ export async function POST(request: NextRequest) {
  * @security Should be protected with authentication in production
  * @security Consider disabling key listing in production
  */
-export async function GET(request: NextRequest) {
+export const GET = withApiLogging(async async request: NextRequest) {
   try {
     const stats = getCacheStats();
     

@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPolicy } from "@/lib/contracts/insurance-cached";
 import { validateAuth, unauthorizedResponse } from "@/lib/auth";
 
+import { withApiLogging } from '@/lib/api-logging';
 // GET /api/insurance/:id
-export async function GET(
+export const GET = withApiLogging(async async 
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
